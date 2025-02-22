@@ -10,24 +10,25 @@ import SwiftUI
 @main
 struct Inspiration4App: App {
 
-    @State private var appModel = AppModel()
+    @State private var viewModel = ViewModel()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(appModel)
+            AreasView()
+                .environment(viewModel)
         }
-
-        ImmersiveSpace(id: appModel.immersiveSpaceID) {
-            ImmersiveView()
-                .environment(appModel)
-                .onAppear {
-                    appModel.immersiveSpaceState = .open
-                }
-                .onDisappear {
-                    appModel.immersiveSpaceState = .closed
-                }
+        
+        WindowGroup(id: "CapsuleRealityArea") {
+            CapsuleRealityArea()
+                .environment(viewModel)
         }
-        .immersionStyle(selection: .constant(.mixed), in: .mixed)
-     }
+        .windowStyle(.volumetric)
+        .defaultSize(width: 0.6, height: 0.6, depth: 0.6, in: .meters)
+        
+        ImmersiveSpace(id: "FullRocketRealityArea") {
+            FullRocketRealityArea()
+                .environment(viewModel)
+        }
+        .immersionStyle(selection: .constant(.mixed), in: .full)
+    }
 }
