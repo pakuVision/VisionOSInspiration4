@@ -28,7 +28,7 @@ struct NavigationToAreas: View {
                             EquipmentAreaView()
                                 .environment(viewModel)
                         case .mission:
-                            CrewAreaView(title: area.title)
+                            MissionAreaView()
                         }
                         
                     } label: {
